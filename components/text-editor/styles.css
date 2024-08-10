@@ -1,0 +1,96 @@
+.tiptap-toolbar {
+  @apply z-10 flex flex-wrap items-center gap-1 p-2 rounded-t-md;
+}
+
+.tiptap-toolbar button {
+  @apply px-1 min-w-[30px] h-[28px] flex justify-center items-center rounded hover:bg-gray-200 dark:hover:bg-gray-800 disabled:opacity-50 disabled:hover:!bg-transparent;
+}
+
+.tiptap-toolbar .is-active {
+  @apply bg-gray-300 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-700;
+}
+
+.ProseMirror {
+  @apply p-2 h-[600px] max-w-full overflow-y-auto outline-none rounded-md rounded-t-none border border-t-0 border-border focus:border-primary scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-200 dark:scrollbar-track-gray-800 dark:scrollbar-thumb-gray-600;
+}
+
+.ProseMirror > * + * {
+  /* @apply mt-4; */
+  @apply pt-4;
+}
+
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  @apply leading-[1.1];
+}
+
+.ProseMirror > h1 {
+  @apply text-[32px] font-bold;
+}
+.ProseMirror > h2 {
+  @apply text-[24px] font-bold;
+}
+.ProseMirror > h3 {
+  @apply text-[20.8px] font-bold;
+}
+.ProseMirror > h4 {
+  @apply text-[16px] font-bold;
+}
+.ProseMirror > h5 {
+  @apply text-[12.8px] font-bold;
+}
+.ProseMirror > h6 {
+  @apply text-[11.2px] font-bold;
+}
+
+.ProseMirror > p {
+  @apply text-base;
+}
+
+.ProseMirror > ul {
+  @apply ml-5 list-disc;
+}
+.ProseMirror > ol {
+  @apply ml-5 list-decimal;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  @apply px-4 py-0;
+}
+
+.ProseMirror code {
+  @apply bg-black;
+}
+
+.ProseMirror pre {
+  @apply bg-[#0d0d0d] text-white font-["JetBrainsMono",monospace] py-3 px-4 rounded-lg overflow-x-auto;
+}
+
+.ProseMirror pre code {
+  @apply text-sm text-yellow-200 bg-[#0d0d0d];
+}
+
+.ProseMirror img {
+  @apply h-auto max-w-full inline;
+}
+
+.ProseMirror a {
+  @apply text-blue-600 underline hover:text-blue-400 transition-colors duration-200;
+}
+
+.ProseMirror blockquote {
+  @apply pl-4 border-l-2 border-[#9c9c9c];
+}
+
+.ProseMirror hr {
+  @apply my-8 border-t border-gray-400;
+}
+
+.ProseMirror iframe {
+  @apply max-w-full max-h-[250px] sm:max-h-full;
+}

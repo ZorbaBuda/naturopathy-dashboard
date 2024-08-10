@@ -1,0 +1,2 @@
+Management dashboard for websites
+

@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type FeaturedImage {
+  imageId    String
+  imageUrl   String
+  imageTitle String
+  altText    String
+}
+
+model Admin {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  email    String @unique
+  password String
+  role     String @default("ADMIN")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model User {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  role     String @default("USER")
+  username String @unique
+  email    String @unique
+  password String
+
+  logoUrl String?
+  logoId  String?
+
+  categories Category[]
+  blogs      Blog[]
+  medias     Media[]
+  messages   Message[]
+
+  blogViews BlogView[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Blog {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  slug            String
+  title           String
+  body            String
+  author          String
+  metaDescription String
+  categories      String[]
+  featuredImage   FeaturedImage
+  published       Boolean
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.ObjectId
+
+  blogViews BlogView[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([id, userId])
+}
+
+model BlogView {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  visitorId String
+  viewport  String
+
+  blog   Blog   @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  blogId String @db.ObjectId
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.ObjectId
+
+  createdAt DateTime @default(now())
+
+  @@unique([blogId, visitorId])
+}
+
+model Media {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  imageUrl   String
+  imageId    String
+  imageTitle String
+  altText    String
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([id, userId])
+}
+
+model Category {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  categoryName String
+  slug         String
+  description  String
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([id, userId])
+}
+
+model Message {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  username    String
+  email       String
+  phoneNumber String?
+  subject     String?
+  message     String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([id, userId])
+}
