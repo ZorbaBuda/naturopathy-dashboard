@@ -68,6 +68,7 @@ export async function getContactForms({
   .limit(take)
   .sort(sorting)
 
+
   const contactFormsCount = await ContactForm.countDocuments();
 
   // const blogs = JSON.parse(JSON.stringify(response))

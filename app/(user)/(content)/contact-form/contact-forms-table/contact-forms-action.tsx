@@ -1,6 +1,6 @@
 "use client";
 
-import type { TBlog } from "@/types";
+import type { TBlog, TContactForm } from "@/types";
 import { useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -16,15 +16,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { DeleteModal } from "@/components/modals/delete-modal";
 import { deleteBlog } from "@/lib/services/mutations/delete-blog";
+import deleteContactForm from "@/lib/services/mutations/delete-contact-form";
 
-interface BlogAction<TData> {
+interface ContactFormAction<TData> {
   row: Row<TData>;
 }
 
-export function ContactFormsAction<TData>({ row }: BlogAction<TData>) {
-  const blog = row.original as TBlog;
+export function ContactFormsAction<TData>({ row }: ContactFormAction<TData>) {
+  const contactFormData = row.original as TContactForm;
  
-  console.log("_id", blog._id)
+  console.log("_id", contactFormData._id)
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -33,7 +34,7 @@ export function ContactFormsAction<TData>({ row }: BlogAction<TData>) {
     // console.log("delete id", category.id);
     setIsDeleting(true);
 
-    const result = await deleteBlog({ deleteId: blog._id });
+    const result = await deleteContactForm({ deleteId: contactFormData._id });
 
     console.log("result", result);
 
@@ -62,7 +63,7 @@ export function ContactFormsAction<TData>({ row }: BlogAction<TData>) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[160px]">
-          <Link href={`/blog/view/${blog.slug}`}>
+          <Link href={`/contact-form/view/${contactFormData._id}`}>
             <DropdownMenuItem>
               <Eye className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
               View
@@ -71,12 +72,6 @@ export function ContactFormsAction<TData>({ row }: BlogAction<TData>) {
 
           <DropdownMenuSeparator />
 
-          <Link href={`/blog/edit-blog/${blog.slug}`}>
-            <DropdownMenuItem>
-              <Edit className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
-              Edit
-            </DropdownMenuItem>
-          </Link>
 
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setShowDeleteModal(true)}>
@@ -87,10 +82,10 @@ export function ContactFormsAction<TData>({ row }: BlogAction<TData>) {
       </DropdownMenu>
 
       <DeleteModal
-        key={blog._id}
+        key={contactFormData._id}
         showDeleteModal={showDeleteModal}
         setShowDeleteModal={setShowDeleteModal}
-        title={`Do you want to delete "${blog.title}"?`}
+        title={`Do you want to delete "${contactFormData.name} message"?`}
         handleDelete={handleDelete}
         isPending={isDeleting}
       />

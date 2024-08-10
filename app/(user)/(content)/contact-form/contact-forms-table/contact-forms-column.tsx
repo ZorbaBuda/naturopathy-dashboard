@@ -7,9 +7,9 @@ import { DataTableColumnHeader } from "@/components/data-table/data-table-column
 import { ClientFormattedDate } from "@/components/formats/client-formatted-date";
 import { ContactFormsAction } from "./contact-forms-action";
 // import { BlogQueryProps } from "@/db/user/queries/get-blogs";
-import { TBlog } from "@/types";
+import { TContactForm } from "@/types";
 
-export const contactFormsColumn: ColumnDef<TBlog>[] = [
+export const contactFormsColumn: ColumnDef<TContactForm>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -35,53 +35,40 @@ export const contactFormsColumn: ColumnDef<TBlog>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "title",
+    accessorKey: "name",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" manualSort />
+      <DataTableColumnHeader column={column} title="Name" manualSort />
     ),
-    cell: ({ row }) => <div className="w-[400px]">{row.getValue("title")}</div>,
+    cell: ({ row }) => <div className="w-[400px]">{row.getValue("name")}</div>,
   },
   {
-    accessorKey: "author",
+    accessorKey: "phone",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Author" manualSort />
+      <DataTableColumnHeader column={column} title="Phone" manualSort />
     ),
-    cell: ({ row }) => <div>{row.getValue("author")}</div>,
+    cell: ({ row }) => <div>{row.getValue("phone")}</div>,
   },
   {
-    accessorKey: "metaDescription",
+    accessorKey: "email",
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title="Meta Description"
+        title="Email"
         manualSort
       />
     ),
     cell: ({ row }) => (
-      <div className="w-[400px]">{row.getValue("metaDescription")}</div>
+      <div className="w-[400px]">{row.getValue("email")}</div>
     ),
   },
-  //TODO count blogviews row
-  // {
-  //   accessorKey: "_count.blogViews",
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title="Views" manualSort />
-  //   ),
-  //   cell: ({
-  //     row: {
-  //       original: {
-  //         _count: { blogViews },
-  //       },
-  //     },
-  //   }) => <div>{blogViews}</div>,
-  // },
+ 
   {
-    accessorKey: "published",
+    accessorKey: "message",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" manualSort />
+      <DataTableColumnHeader column={column} title="Message" manualSort />
     ),
     cell: ({ row }) => (
-      <div>{row.getValue("published") ? "Published" : "Draft"}</div>
+      <div>{row.getValue("message")}</div>
     ),
   },
   {
@@ -100,7 +87,7 @@ export const contactFormsColumn: ColumnDef<TBlog>[] = [
     id: "actions",
     cell: ({ row }) => (
       <div>
-        <BlogAction row={row} />
+        <ContactFormsAction row={row} />
       </div>
     ),
   },

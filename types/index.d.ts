@@ -39,6 +39,7 @@ type TBlog = {
 };
 
 type TContactForm = {
+  _id: string,
   name: string,
   phone: string,
   email: string,

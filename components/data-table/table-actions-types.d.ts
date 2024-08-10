@@ -5,4 +5,5 @@ import { DeleteMessageProps } from "@/db/user/mutations/delete-message";
 type DeleteActionProps =
   | DeleteCategoryProps
   | DeleteBlogProps
-  | DeleteMessageProps;
+  | DeleteMessageProps
+  | DeleteContactFormProps;
